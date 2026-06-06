@@ -362,6 +362,19 @@ h2 {
   white-space: nowrap;
 }
 
+.transaction-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+
+.transaction-meta time {
+  color: #647067;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
 .transaction-category,
 .transaction-type {
   width: max-content;

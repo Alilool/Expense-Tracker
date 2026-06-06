@@ -55,6 +55,7 @@ export default function TransactionForm({ onAddTransaction }) {
       amount: numericAmount,
       type,
       category,
+      createdAt: new Date().toISOString(),
     });
 
     // Reset the form after a successful add so it is ready for the next transaction.
@@ -81,6 +82,20 @@ export default function TransactionForm({ onAddTransaction }) {
     }
   }
 
+  function handleAmountChange(newAmount) {
+    if (Number.isNaN(Number(newAmount)) || Number(newAmount) < 0) {
+      setErrorMessage("Please enter a valid number for the amount.");
+      return;
+    }
+
+    if (Number(newAmount) > 9999999999) {
+      setErrorMessage("Amount number can't exceed 10 digits.");
+      return;
+    }
+    setAmount(newAmount);
+    setErrorMessage("");
+  }
+
   return (
     <section className="panel">
       <div className="section-heading">
@@ -104,12 +119,10 @@ export default function TransactionForm({ onAddTransaction }) {
         <label>
           Amount
           <input
-            min="1"
             type="number"
             value={amount}
             onChange={(event) => {
-              setAmount(event.target.value);
-              setErrorMessage("");
+              handleAmountChange(event.target.value);
             }}
             placeholder="120"
           />

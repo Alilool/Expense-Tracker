@@ -18,11 +18,15 @@ export default function Balance({
       return;
     }
     onWithdrawSavings({
-      id: crypto.randomUUID(),
+      id:
+        crypto.randomUUID && window.isSecureContext
+          ? crypto.randomUUID()
+          : Math.random().toString(36).slice(2), // Unique ID for this example only. Don't use in production.
       title: "Savings Withdrawal",
       amount: numericAmount,
       type: "saving-withdrawal",
       category: "Saving",
+      createdAt: new Date().toISOString(),
     });
     setWithdrawAmount("");
   }
