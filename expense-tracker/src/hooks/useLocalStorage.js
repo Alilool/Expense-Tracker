@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 export function useLocalStorage(key, initialValue) {
   // Read from localStorage only once when the component first loads.
   const [value, setValue] = useState(() => {
-    const savedValue = localStorage.getItem(key);
     try {
+      const savedValue = localStorage.getItem(key);
       return savedValue ? JSON.parse(savedValue) : initialValue;
     } catch (error) {
       console.error("Error parsing localStorage value:", error);
