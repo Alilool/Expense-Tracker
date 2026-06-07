@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Balance from "./components/Balance.jsx";
 import Filters from "./components/Filters.jsx";
 import Header from "./components/Header.jsx";
@@ -15,7 +15,12 @@ export default function App() {
     "expense-tracker-transactions",
     [],
   );
+  const [theme, setTheme] = useLocalStorage("expense-tracker-theme", "light");
   const [activeFilter, setActiveFilter] = useState("All");
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+  }, [theme]);
 
   // Derived values: these are calculated from transactions instead of stored separately.
   const income = transactions
@@ -102,9 +107,13 @@ export default function App() {
     ]);
   }
 
+  function handleToggleTheme() {
+    setTheme((currentTheme) => (currentTheme === "dark" ? "light" : "dark"));
+  }
+
   return (
     <main className="app-shell">
-      <Header />
+      <Header theme={theme} onToggleTheme={handleToggleTheme} />
       <Balance
         income={income}
         expenses={expenses}

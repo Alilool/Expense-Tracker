@@ -1,12 +1,63 @@
 :root {
   /* App-wide theme values live here so the rest of the CSS stays consistent. */
-  color: #19201d;
-  background: #eef1ed;
+  color-scheme: light;
+  --page-bg: #eef1ed;
+  --text: #19201d;
+  --text-muted: #60706a;
+  --text-soft: #394640;
+  --surface: #ffffff;
+  --surface-soft: #f8faf8;
+  --surface-muted: #f3f6f3;
+  --surface-chip: #e8eee9;
+  --border: #dce3dc;
+  --border-strong: #cfd9d1;
+  --brand: #2d6a4f;
+  --on-brand: #ffffff;
+  --brand-dark: #173f35;
+  --brand-soft: #d8f3dc;
+  --income: #167448;
+  --expense: #b42318;
+  --saving: #1d4ed8;
+  --on-saving: #ffffff;
+  --filter-active: #1d3557;
+  --error-bg: #fff5f3;
+  --error-border: #ffd2cc;
+  --shadow: 0 10px 30px rgb(25 32 29 / 7%);
+  --header-shadow: 0 18px 40px rgb(23 63 53 / 18%);
+  color: var(--text);
+  background: var(--page-bg);
   font-family:
     Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
     sans-serif;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --page-bg: #111816;
+  --text: #edf5ef;
+  --text-muted: #9caaa3;
+  --text-soft: #d4ded8;
+  --surface: #18211e;
+  --surface-soft: #202b27;
+  --surface-muted: #26332e;
+  --surface-chip: #2d3a35;
+  --border: #2d3a35;
+  --border-strong: #3c4b45;
+  --brand: #74c69d;
+  --on-brand: #061a14;
+  --brand-dark: #0d2c25;
+  --brand-soft: #c7f9cc;
+  --income: #63d596;
+  --expense: #ff8a7f;
+  --saving: #3b82f6;
+  --on-saving: #ffffff;
+  --filter-active: #b8d8f8;
+  --error-bg: #391d1b;
+  --error-border: #7f312b;
+  --shadow: 0 10px 30px rgb(0 0 0 / 24%);
+  --header-shadow: 0 18px 40px rgb(0 0 0 / 30%);
 }
 
 * {
@@ -17,6 +68,8 @@ body {
   min-width: 320px;
   min-height: 100vh;
   margin: 0;
+  color: var(--text);
+  background: var(--page-bg);
 }
 
 button,
@@ -41,24 +94,51 @@ button {
   gap: 14px;
   padding: 24px;
   color: #f8fbf7;
-  background: linear-gradient(135deg, #173f35, #2d6a4f);
+  background: linear-gradient(135deg, var(--brand-dark), var(--brand));
   border-radius: 8px;
-  box-shadow: 0 18px 40px rgb(23 63 53 / 18%);
+  box-shadow: var(--header-shadow);
 }
 
 .brand-mark {
   display: grid;
+  flex: 0 0 auto;
   width: 52px;
   height: 52px;
   place-items: center;
-  color: #173f35;
-  background: #d8f3dc;
+  color: var(--brand-dark);
+  background: var(--brand-soft);
   border-radius: 8px;
+}
+
+.app-header > div:nth-child(2) {
+  min-width: 0;
+}
+
+.theme-toggle {
+  display: grid;
+  flex: 0 0 auto;
+  width: 44px;
+  height: 44px;
+  margin-left: auto;
+  place-items: center;
+  color: #f8fbf7;
+  background: rgb(255 255 255 / 12%);
+  border: 1px solid rgb(255 255 255 / 28%);
+  border-radius: 8px;
+}
+
+.theme-toggle:hover {
+  background: rgb(255 255 255 / 20%);
+}
+
+.theme-toggle:focus-visible {
+  outline: 3px solid rgb(216 243 220 / 70%);
+  outline-offset: 3px;
 }
 
 .eyebrow {
   margin: 0 0 4px;
-  color: #d8f3dc;
+  color: var(--brand-soft);
   font-size: 0.85rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -89,10 +169,10 @@ h2 {
 .summary-panel,
 .panel,
 .filters {
-  background: #ffffff;
-  border: 1px solid #dce3dc;
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 8px;
-  box-shadow: 0 10px 30px rgb(25 32 29 / 7%);
+  box-shadow: var(--shadow);
 }
 
 .summary-panel {
@@ -103,11 +183,11 @@ h2 {
 }
 
 .summary-panel svg {
-  color: #2d6a4f;
+  color: var(--brand);
 }
 
 .summary-panel span {
-  color: #60706a;
+  color: var(--text-muted);
   font-weight: 700;
 }
 
@@ -117,18 +197,18 @@ h2 {
 
 .summary-panel.income strong,
 .transaction-item.income .transaction-amount {
-  color: #167448;
+  color: var(--income);
 }
 
 .summary-panel.expense strong,
 .transaction-item.expense .transaction-amount {
-  color: #b42318;
+  color: var(--expense);
 }
 
 .summary-panel.saving strong,
 .transaction-item.saving .transaction-amount,
 .transaction-item.saving-withdrawal .transaction-amount {
-  color: #1d4ed8;
+  color: var(--saving);
 }
 
 .withdraw-form {
@@ -141,18 +221,18 @@ h2 {
   min-width: 0;
   height: 38px;
   padding: 0 10px;
-  color: #19201d;
-  background: #f8faf8;
-  border: 1px solid #cfd9d1;
+  color: var(--text);
+  background: var(--surface-soft);
+  border: 1px solid var(--border-strong);
   border-radius: 8px;
 }
 
 .withdraw-form button {
   height: 38px;
   padding: 0 12px;
-  color: #ffffff;
+  color: var(--on-saving);
   font-weight: 900;
-  background: #1d4ed8;
+  background: var(--saving);
   border: 0;
   border-radius: 8px;
 }
@@ -189,7 +269,7 @@ h2 {
 }
 
 .section-heading span {
-  color: #60706a;
+  color: var(--text-muted);
   font-size: 0.9rem;
   font-weight: 700;
 }
@@ -204,7 +284,7 @@ h2 {
   display: grid;
   gap: 8px;
   margin: 0;
-  color: #394640;
+  color: var(--text-soft);
   font-size: 0.92rem;
   font-weight: 800;
 }
@@ -224,17 +304,17 @@ h2 {
   width: 100%;
   min-height: 44px;
   padding: 0 12px;
-  color: #19201d;
-  background: #f8faf8;
-  border: 1px solid #cfd9d1;
+  color: var(--text);
+  background: var(--surface-soft);
+  border: 1px solid var(--border-strong);
   border-radius: 8px;
   outline: none;
 }
 
 .transaction-form input:focus,
 .transaction-form select:focus {
-  border-color: #2d6a4f;
-  box-shadow: 0 0 0 3px rgb(45 106 79 / 16%);
+  border-color: var(--brand);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--brand) 25%, transparent);
 }
 
 .segmented-control {
@@ -258,16 +338,16 @@ h2 {
   display: grid;
   min-height: 42px;
   place-items: center;
-  color: #42504a;
-  background: #f3f6f3;
-  border: 1px solid #cfd9d1;
+  color: var(--text-soft);
+  background: var(--surface-muted);
+  border: 1px solid var(--border-strong);
   border-radius: 8px;
 }
 
 .segmented-control input:checked+span {
-  color: #ffffff;
-  background: #2d6a4f;
-  border-color: #2d6a4f;
+  color: var(--on-brand);
+  background: var(--brand);
+  border-color: var(--brand);
 }
 
 .primary-button {
@@ -276,20 +356,20 @@ h2 {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  color: #ffffff;
+  color: var(--on-brand);
   font-weight: 900;
-  background: #2d6a4f;
+  background: var(--brand);
   border: 0;
   border-radius: 8px;
 }
 
 .form-error {
   padding: 10px 12px;
-  color: #b42318;
+  color: var(--expense);
   font-size: 0.92rem;
   font-weight: 800;
-  background: #fff5f3;
-  border: 1px solid #ffd2cc;
+  background: var(--error-bg);
+  border: 1px solid var(--error-border);
   border-radius: 8px;
 }
 
@@ -303,17 +383,17 @@ h2 {
 .filter-button {
   min-height: 38px;
   padding: 0 14px;
-  color: #394640;
+  color: var(--text-soft);
   font-weight: 800;
-  background: #f8faf8;
-  border: 1px solid #cfd9d1;
+  background: var(--surface-soft);
+  border: 1px solid var(--border-strong);
   border-radius: 999px;
 }
 
 .filter-button.active {
-  color: #ffffff;
-  background: #1d3557;
-  border-color: #1d3557;
+  color: var(--surface);
+  background: var(--filter-active);
+  border-color: var(--filter-active);
 }
 
 .transaction-list {
@@ -331,22 +411,22 @@ h2 {
   align-items: center;
   min-height: 70px;
   padding: 12px;
-  background: #f8faf8;
-  border-left: 5px solid #60706a;
+  background: var(--surface-soft);
+  border-left: 5px solid var(--text-muted);
   border-radius: 8px;
 }
 
 .transaction-item.income {
-  border-left-color: #167448;
+  border-left-color: var(--income);
 }
 
 .transaction-item.expense {
-  border-left-color: #b42318;
+  border-left-color: var(--expense);
 }
 
 .transaction-item.saving,
 .transaction-item.saving-withdrawal {
-  border-left-color: #1d4ed8;
+  border-left-color: var(--saving);
 }
 
 .transaction-main {
@@ -370,7 +450,7 @@ h2 {
 }
 
 .transaction-meta time {
-  color: #647067;
+  color: var(--text-muted);
   font-size: 0.78rem;
   font-weight: 800;
 }
@@ -380,11 +460,11 @@ h2 {
   width: max-content;
   max-width: 100%;
   padding: 4px 8px;
-  color: #42504a;
+  color: var(--text-soft);
   font-size: 0.78rem;
   font-weight: 900;
   text-transform: capitalize;
-  background: #e8eee9;
+  background: var(--surface-chip);
   border-radius: 999px;
 }
 
@@ -397,9 +477,9 @@ h2 {
   width: 38px;
   height: 38px;
   place-items: center;
-  color: #b42318;
-  background: #fff5f3;
-  border: 1px solid #ffd2cc;
+  color: var(--expense);
+  background: var(--error-bg);
+  border: 1px solid var(--error-border);
   border-radius: 8px;
 }
 
@@ -412,13 +492,13 @@ h2 {
 
 .stats-grid div {
   padding: 14px;
-  background: #f8faf8;
-  border: 1px solid #dce3dc;
+  background: var(--surface-soft);
+  border: 1px solid var(--border);
   border-radius: 8px;
 }
 
 .stats-grid dt {
-  color: #60706a;
+  color: var(--text-muted);
   font-size: 0.82rem;
   font-weight: 800;
 }
@@ -431,9 +511,9 @@ h2 {
 
 .empty-state {
   padding: 24px;
-  color: #60706a;
+  color: var(--text-muted);
   text-align: center;
-  background: #f8faf8;
+  background: var(--surface-soft);
   border-radius: 8px;
 }
 
