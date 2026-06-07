@@ -6,7 +6,7 @@ export default function Header({ theme, onToggleTheme }) {
       <div className="brand-mark" aria-hidden="true">
         <WalletCards size={28} />
       </div>
-      <div>
+      <div className="header-copy">
         <p className="eyebrow">Personal finance</p>
         <h1>Expense Tracker</h1>
       </div>
